@@ -53,25 +53,31 @@ void Initialize(void)
 
 void GetInput(void)
 {
-
+    myGM->getInput();
 }
 
 void RunLogic(void)
 {
     myPlayer->updatePlayerDir();
+    myPlayer->movePlayer();
+
+    myGM->clearInput();
 }
 
 void DrawScreen(void)
 {
     MacUILib_clearScreen();
 
-    for (int row = 0; row < myGM.getBoardSizeY(); row++){
-        for (int col = 0; col < myGM.getBoardSizeX(); col++){
-            if (row == 0 || row == myGM.getBoardSizeY() - 1 || col == 0 || col == myGM.getBoardSizeY() - 1){
+    objPos tempPos;
+    myPlayer->getPlayerPos(tempPos);
+
+    for (int row = 0; row < myGM->getBoardSizeY(); row++){
+        for (int col = 0; col < myGM->getBoardSizeX(); col++){
+            if (row == 0 || row == myGM->getBoardSizeY() - 1 || col == 0 || col == myGM->getBoardSizeX() - 1){
                 MacUILib_printf("#");
             }
-            else if (row == myPlayer.x && col == myPlayer.y){
-                MacUILib_printf("%c", myPlayer.symbol);
+            else if (row == tempPos.y && col == tempPos.x){
+                MacUILib_printf("%c", tempPos.symbol);
             }
             else{
                 MacUILib_printf(" ");
@@ -80,7 +86,7 @@ void DrawScreen(void)
         MacUILib_printf("\n"); // Move to the next row
     }
 
-    if(myGM.getLoseFlagStatus() == true){
+    if(myGM->getLoseFlagStatus() == true){
         MacUILib_printf("You Lose");
     }
 
@@ -97,4 +103,7 @@ void CleanUp(void)
     MacUILib_clearScreen();    
   
     MacUILib_uninit();
+
+    delete myGM;
+    delete myPlayer;
 }
