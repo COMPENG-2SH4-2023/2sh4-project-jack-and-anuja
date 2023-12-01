@@ -2,11 +2,11 @@
 #define MAC_UI_LIB
 
 	#define WINDOWS
-	//#define POSIX
+	#define POSIX
 
 	#include <stdio.h>
 	#include <stdlib.h>	
-	//#include <unistd.h>
+	#include <unistd.h>
 
 	void MacUILib_init(void);
 	void MacUILib_init_sync(void);

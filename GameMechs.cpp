@@ -10,7 +10,6 @@ GameMechs::GameMechs()
     boardSizeY = 10;
     score = 0;
     
-    //foodPos.setObjPos();    //initialize food pos outside of game board
 }
 
 GameMechs::GameMechs(int boardX, int boardY)
@@ -62,7 +61,11 @@ int GameMechs::getBoardSizeY()
 
 void GameMechs::setExitTrue()
 {
-    exitFlag = 1;
+    exitFlag = true;
+}
+
+void GameMechs::setLoseFlag(){
+    loseFlag = true;
 }
 
 void GameMechs::setInput(char this_input)
@@ -83,11 +86,5 @@ void GameMechs::incrementScore(){
     score++;
 }
 
-void GameMechs::generateFood(objPos blockOff){
 
-}
-
-void GameMechs::getFoodPos(objPos &returnPos){
-
-}
 

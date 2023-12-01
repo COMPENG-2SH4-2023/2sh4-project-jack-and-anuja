@@ -3,7 +3,8 @@
 #include "objPos.h"
 #include "GameMechs.h"
 #include "Player.h"
-
+#include "Food.h"
+#include <time.h>
 
 using namespace std;
 
@@ -11,6 +12,7 @@ using namespace std;
 
 GameMechs* myGM;
 Player* myPlayer;
+Food* myFood;
 
 bool exitFlag;
 
@@ -45,9 +47,13 @@ void Initialize(void)
 {
     MacUILib_init();
     MacUILib_clearScreen();
+    srand(time(NULL));
 
-    myGM = new GameMechs(20, 10);
+    myGM = new GameMechs(30, 15);
+    myFood = new Food(myGM);
     myPlayer = new Player(myGM);
+
+    myFood->generateFood(myPlayer);
 
 }
 
@@ -106,4 +112,5 @@ void CleanUp(void)
 
     delete myGM;
     delete myPlayer;
+    delete myFood;
 }
