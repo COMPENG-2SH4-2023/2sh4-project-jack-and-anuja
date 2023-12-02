@@ -15,21 +15,17 @@ Food::~Food(){
 
 void Food::generateFood(objPos blockOff){
 
-    foodPos.x = 1 + rand() % mainGameMechsRef->getBoardSizeX() - 2;
-    foodPos.y = 1 + rand() % mainGameMechsRef->getBoardSizeY() - 2;
+    int xRange = mainGameMechsRef->getBoardSizeX() - 2;
+    int yRange = mainGameMechsRef->getBoardSizeY() - 2;
+
+    foodPos.x = 1 + rand() % xRange;
+    foodPos.y = 1 + rand() % yRange;
 
     while(foodPos.x == blockOff.x && foodPos.y == blockOff.y){
-        foodPos.x = 1 + rand() % mainGameMechsRef->getBoardSizeX() - 2;
-        foodPos.y = 1 + rand() % mainGameMechsRef->getBoardSizeY() - 2;
+        foodPos.x = 1 + rand() % xRange;
+        foodPos.y = 1 + rand() % yRange;
     }
 
-
-/*
-    while(foodPos.x == blockOff.x && foodPos.y == blockOff.y){
-        foodPos.x = 1 + rand() % mainGameMechsRef->getBoardSizeX() - 2;
-        foodPos.y = 1 + rand() % mainGameMechsRef->getBoardSizeY() - 2;
-    }
-*/
 }
 
 void Food::getFoodPos(objPos &returnPos){

@@ -93,7 +93,7 @@ void DrawScreen(void)
                 MacUILib_printf("%c", tempPos.symbol);
             }
 
-            else if(row == tempFood.x && col == tempFood.y){
+            else if(row == tempFood.y && col == tempFood.x){
                 MacUILib_printf("%c", tempFood.symbol);
             }
 
@@ -107,7 +107,9 @@ void DrawScreen(void)
     if(myGM->getLoseFlagStatus() == true){
         MacUILib_printf("You Lose");
     }
-
+    //MacUILib_printf("Score: %d", myGM->getScore);
+    MacUILib_printf("Character Postions<%d>,<%d>\n",tempPos.x,tempPos.y);
+    MacUILib_printf("Food Positions<%d>,<%d>", tempFood.x, tempFood.y);
 }
 
 void LoopDelay(void)
