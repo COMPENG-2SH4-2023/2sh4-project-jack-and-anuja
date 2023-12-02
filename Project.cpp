@@ -54,10 +54,9 @@ void Initialize(void)
     myPlayer = new Player(myGM, myFood);
     myFood = new Food(myGM);
 
-    objPos position;
-    myPlayer->getPlayerPos(position);
-
-    myFood->generateFood(position);
+    //Tester setup
+    objPos tempPos{1,1,'o'};
+    myFood->generateFood(tempPos);
 
 }
 
@@ -78,19 +77,32 @@ void DrawScreen(void)
 {
     MacUILib_clearScreen();
 
-    objPos tempPos;
-    myPlayer->getPlayerPos(tempPos);
+    bool drawn;
+
+    objPosArrayList* playerBody = myPlayer->getPlayerPos();
+    objPos tempBody;
 
     objPos tempFood;
     myFood->getFoodPos(tempFood);
 
     for (int row = 0; row < myGM->getBoardSizeY(); row++){
         for (int col = 0; col < myGM->getBoardSizeX(); col++){
+
+            drawn = false;
+
+            for(int i = 0; i < playerBody->getSize(); i++){
+                playerBody->getElement(tempBody, i);
+                if(tempBody.y == row && tempBody.x == col){
+                    MacUILib_printf("%c", tempBody.symbol);
+                    drawn = true;
+                    break;
+                }
+            }
+
+            if(drawn) continue;
+
             if (row == 0 || row == myGM->getBoardSizeY() - 1 || col == 0 || col == myGM->getBoardSizeX() - 1){
                 MacUILib_printf("#");
-            }
-            else if (row == tempPos.y && col == tempPos.x){
-                MacUILib_printf("%c", tempPos.symbol);
             }
 
             else if(row == tempFood.y && col == tempFood.x){
@@ -107,8 +119,12 @@ void DrawScreen(void)
     if(myGM->getLoseFlagStatus() == true){
         MacUILib_printf("You Lose");
     }
-    //MacUILib_printf("Score: %d", myGM->getScore);
-    MacUILib_printf("Character Postions<%d>,<%d>\n",tempPos.x,tempPos.y);
+    MacUILib_printf("Score: %d\n", myGM->getScore());
+    
+    for(int p = 0; p < playerBody->getSize(); p++){
+        playerBody->getElement(tempBody, p);
+        MacUILib_printf("Character Postions<%d>,<%d>\n",tempBody.x,tempBody.y);
+    }
     MacUILib_printf("Food Positions<%d>,<%d>", tempFood.x, tempFood.y);
 }
 
