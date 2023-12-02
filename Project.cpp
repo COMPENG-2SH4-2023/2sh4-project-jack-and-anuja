@@ -4,6 +4,7 @@
 #include "GameMechs.h"
 #include "Player.h"
 #include "Food.h"
+#include "objPosArrayList.h"
 #include <time.h>
 
 using namespace std;
@@ -50,10 +51,13 @@ void Initialize(void)
     srand(time(NULL));
 
     myGM = new GameMechs(30, 15);
+    myPlayer = new Player(myGM, myFood);
     myFood = new Food(myGM);
-    myPlayer = new Player(myGM);
 
-    myFood->generateFood(myPlayer);
+    objPos position;
+    myPlayer->getPlayerPos(position);
+
+    myFood->generateFood(position);
 
 }
 
@@ -77,6 +81,9 @@ void DrawScreen(void)
     objPos tempPos;
     myPlayer->getPlayerPos(tempPos);
 
+    objPos tempFood;
+    myFood->getFoodPos(tempFood);
+
     for (int row = 0; row < myGM->getBoardSizeY(); row++){
         for (int col = 0; col < myGM->getBoardSizeX(); col++){
             if (row == 0 || row == myGM->getBoardSizeY() - 1 || col == 0 || col == myGM->getBoardSizeX() - 1){
@@ -85,6 +92,11 @@ void DrawScreen(void)
             else if (row == tempPos.y && col == tempPos.x){
                 MacUILib_printf("%c", tempPos.symbol);
             }
+
+            else if(row == tempFood.x && col == tempFood.y){
+                MacUILib_printf("%c", tempFood.symbol);
+            }
+
             else{
                 MacUILib_printf(" ");
             }
