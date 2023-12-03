@@ -51,12 +51,13 @@ void Initialize(void)
     srand(time(NULL));
 
     myGM = new GameMechs(30, 15);
-    myPlayer = new Player(myGM, myFood);
     myFood = new Food(myGM);
+    myPlayer = new Player(myGM, myFood);
+    
 
     //Tester setup
-    objPos tempPos{1,1,'o'};
-    myFood->generateFood(tempPos);
+    objPosArrayList* playerBody2 = myPlayer->getPlayerPos();
+    myFood->generateFood(playerBody2);
 
 }
 
@@ -69,6 +70,10 @@ void RunLogic(void)
 {
     myPlayer->updatePlayerDir();
     myPlayer->movePlayer();
+    if (myPlayer->checkSelfCollision()){
+        myGM->setLoseFlag();
+        myGM->setExitTrue();
+    }
 
     myGM->clearInput();
 }

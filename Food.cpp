@@ -13,18 +13,26 @@ Food::~Food(){
 
 }
 
-void Food::generateFood(objPos blockOff){
+void Food::generateFood(objPosArrayList* blockOff) {
 
+    
     int xRange = mainGameMechsRef->getBoardSizeX() - 2;
     int yRange = mainGameMechsRef->getBoardSizeY() - 2;
 
     foodPos.x = 1 + rand() % xRange;
     foodPos.y = 1 + rand() % yRange;
 
-    while(foodPos.x == blockOff.x && foodPos.y == blockOff.y){
-        foodPos.x = 1 + rand() % xRange;
-        foodPos.y = 1 + rand() % yRange;
+     for (int i = 0; i < blockOff->getSize(); ++i) {
+        objPos playerPos;
+        blockOff->getElement(playerPos, i);
+
+        while(foodPos.x == playerPos.x && foodPos.y == playerPos.y){
+            foodPos.x = 1 + rand() % xRange;
+            foodPos.y = 1 + rand() % yRange;
+        }
+
     }
+    
 
 }
 

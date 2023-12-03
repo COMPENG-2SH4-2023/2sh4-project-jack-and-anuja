@@ -18,10 +18,10 @@ Player::Player(GameMechs* thisGMRef, Food* thisFoodRef)
     playerPosList->insertHead(tempPos);
 
     //Debugging method -> insert 4 segments
-    playerPosList->insertHead(tempPos);
-    playerPosList->insertHead(tempPos);
-    playerPosList->insertHead(tempPos);
-    playerPosList->insertHead(tempPos);
+    // playerPosList->insertHead(tempPos);
+   //playerPosList->insertHead(tempPos);
+   // playerPosList->insertHead(tempPos);
+   // playerPosList->insertHead(tempPos);
 }
 
 
@@ -114,23 +114,74 @@ void Player::movePlayer()
         }
         currHead.y++;
         break;
-
     default:
         break;
     }
 
     playerPosList->insertHead(currHead);
-    playerPosList->removeTail();
+
+    objPos newHead;
+
+    playerPosList->getHeadElement(newHead);
+
+    objPos foodpos;
+    mainFoodRef->getFoodPos(foodpos);
+  
+    // Now, you can use 'foodpos' to access the food's position.
+
+    if (newHead.isPosEqual(&foodpos))
+    {
+        // Collision with food
+        mainGameMechsRef->incrementScore();
+        mainFoodRef->generateFood(playerPosList); // Generate new food
+    }
+    else
+    {
+        playerPosList->removeTail();
+    }
+
+
 }
+
+   
+    
+
+
+    // Check if head position colides with food
+    // if yes then increment the score in GM, generate new food, and do not move the tail
+    // otherwise remove tail and move on
+    
+
+    
+    
+    
+    
+
+
 
 bool checkFoodConsumption(){
 
+    
 }
 
 void increasePlayerLength(){
 
 }
 
-bool checkSelfCollision(){
+bool Player::checkSelfCollision() {
+    objPos headPos;
+    playerPosList->getHeadElement(headPos);
 
+    // Iterate through the snake's body (excluding the head)
+    for (int i = 1; i < playerPosList->getSize(); ++i) {
+        objPos bodyPos;
+        playerPosList->getElement(bodyPos, i);
+
+        // Check for collision with body segment
+        if (headPos.isPosEqual(&bodyPos)) {
+            return true;  // Collision detected
+        }
+    }
+
+    return false;  // No collision with self
 }

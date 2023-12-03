@@ -15,13 +15,14 @@ class Food
     private:
         objPos foodPos;
         GameMechs* mainGameMechsRef;
+        //Food* mainFoodRef;
         
     public:
         Food(GameMechs* thisGMRef);
         ~Food();
 
 
-        void generateFood(objPos blockOff);     //Need to upgrade this?
+        void generateFood(objPosArrayList* blockOff);     //Need to upgrade this?
         void getFoodPos(objPos &returnPos);        
 };
 
