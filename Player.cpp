@@ -8,6 +8,7 @@ Player::Player(GameMechs* thisGMRef, Food* thisFoodRef)
     mainFoodRef = thisFoodRef;
     myDir = STOP;
 
+    // Create temporary positions for player object 
     objPos tempPos;
     tempPos.setObjPos(mainGameMechsRef->getBoardSizeX()/2, mainGameMechsRef->getBoardSizeY()/2, '@');
 

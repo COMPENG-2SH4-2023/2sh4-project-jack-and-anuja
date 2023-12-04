@@ -68,6 +68,7 @@ void GetInput(void)
 
 void RunLogic(void)
 {
+    //Call player direction and movement objects
     myPlayer->updatePlayerDir();
     myPlayer->movePlayer();
     if (myPlayer->checkFoodConsumption()){
@@ -88,14 +89,12 @@ void DrawScreen(void)
 
     bool drawn;
 
-    // temperarerly store the food location and player body
+    // temporarily store the food location and player body
     objPosArrayList* playerBody = myPlayer->getPlayerPos();
     objPos tempBody;
 
     objPos tempFood;
     myFood->getFoodPos(tempFood);
-
-
 
     for (int row = 0; row < myGM->getBoardSizeY(); row++){
 
@@ -145,7 +144,6 @@ void LoopDelay(void)
 {
     MacUILib_Delay(DELAY_CONST); // 0.1s delay
 }
-
 
 void CleanUp(void)
 {

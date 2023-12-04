@@ -2,7 +2,7 @@
 
 objPosArrayList::objPosArrayList()
 {
-    aList = new objPos[ARRAY_MAX_CAP]; // 200 elements on hap
+    aList = new objPos[ARRAY_MAX_CAP]; // 200 elements on heap
     sizeArray = ARRAY_MAX_CAP;
     sizeList = 0;
 }
@@ -33,7 +33,7 @@ void objPosArrayList::insertHead(objPos thisPos)
 
 void objPosArrayList::insertTail(objPos thisPos)
 {
-    // move all parts of the snake forward 1
+    // Move all parts of the snake forward 1
     for(int i = 0; i < sizeList; i++){
         aList[i+1].setObjPos(aList[i]);
         if(sizeList == sizeArray){
@@ -48,7 +48,7 @@ void objPosArrayList::insertTail(objPos thisPos)
 void objPosArrayList::removeHead()
 {
     if (sizeList > 0) {
-        for (int i = 0; i < sizeList - 1; i++) { //Sizelist -1
+        for (int i = 0; i < sizeList - 1; i++) { 
             aList[i].setObjPos(aList[i + 1]);
         }
         sizeList--;
