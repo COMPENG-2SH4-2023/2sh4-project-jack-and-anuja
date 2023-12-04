@@ -54,7 +54,6 @@ void Initialize(void)
     myFood = new Food(myGM);
     myPlayer = new Player(myGM, myFood);
     
-
     //Tester setup
     objPosArrayList* playerBody2 = myPlayer->getPlayerPos();
     myFood->generateFood(playerBody2);
@@ -70,6 +69,10 @@ void RunLogic(void)
 {
     myPlayer->updatePlayerDir();
     myPlayer->movePlayer();
+    if (myPlayer->checkFoodConsumption()){
+        myPlayer->increasePlayerLength();
+    }
+
     if (myPlayer->checkSelfCollision()){
         myGM->setLoseFlag();
         myGM->setExitTrue();
@@ -121,16 +124,11 @@ void DrawScreen(void)
         MacUILib_printf("\n"); // Move to the next row
     }
 
-    if(myGM->getLoseFlagStatus() == true){
-        MacUILib_printf("You Lose");
-    }
     MacUILib_printf("Score: %d\n", myGM->getScore());
     
-    for(int p = 0; p < playerBody->getSize(); p++){
-        playerBody->getElement(tempBody, p);
-        MacUILib_printf("Character Postions<%d>,<%d>\n",tempBody.x,tempBody.y);
+    if(myGM->getLoseFlagStatus() == true){
+        MacUILib_printf("Game Ended. You scored: %d\n", myGM->getScore());
     }
-    MacUILib_printf("Food Positions<%d>,<%d>", tempFood.x, tempFood.y);
 }
 
 void LoopDelay(void)

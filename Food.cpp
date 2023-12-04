@@ -33,7 +33,6 @@ void Food::generateFood(objPosArrayList* blockOff) {
 
     }
     
-
 }
 
 void Food::getFoodPos(objPos &returnPos){
