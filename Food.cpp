@@ -6,7 +6,7 @@
 
 Food::Food(GameMechs* thisGMRef){
     mainGameMechsRef = thisGMRef;
-    foodPos.setObjPos(-1,-1,'o');
+    foodPos.setObjPos(-1,-1,'$');
 }
 
 Food::~Food(){
@@ -22,6 +22,7 @@ void Food::generateFood(objPosArrayList* blockOff) {
     foodPos.x = 1 + rand() % xRange;
     foodPos.y = 1 + rand() % yRange;
 
+    // Ensure food is not generated on snake body 
      for (int i = 0; i < blockOff->getSize(); ++i) {
         objPos playerPos;
         blockOff->getElement(playerPos, i);

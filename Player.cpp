@@ -3,6 +3,7 @@
 
 Player::Player(GameMechs* thisGMRef, Food* thisFoodRef)
 {
+
     mainGameMechsRef = thisGMRef;
     mainFoodRef = thisFoodRef;
     myDir = STOP;
@@ -22,7 +23,7 @@ Player::~Player()
     delete playerPosList;
 }
 
-objPosArrayList* Player::getPlayerPos(){ //Iteration 3 change
+objPosArrayList* Player::getPlayerPos(){ 
     return playerPosList;
 }
 
@@ -31,7 +32,7 @@ void Player::updatePlayerDir()
     // PPA3 input processing logic     
     char input = mainGameMechsRef->getInput();
 
-    switch(input){      //How do u get input. GameMechs * 
+    switch(input){      
         case 'w':
             if(myDir != DOWN){
             myDir = UP;
@@ -114,6 +115,8 @@ bool Player::checkFoodConsumption(){
 
     objPos foodpos;
     mainFoodRef->getFoodPos(foodpos);
+
+    // Does the food postion and new head overlap 
 
     if (newHead.isPosEqual(&foodpos))
     {

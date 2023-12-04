@@ -1,9 +1,5 @@
 #include "objPosArrayList.h"
 
-// Paste your CUTE Tested implementation here.
-// Paste your CUTE Tested implementation here.
-// Paste your CUTE Tested implementation here.
-
 objPosArrayList::objPosArrayList()
 {
     aList = new objPos[ARRAY_MAX_CAP]; // 200 elements on hap
@@ -23,7 +19,7 @@ int objPosArrayList::getSize()
 
 void objPosArrayList::insertHead(objPos thisPos)
 {
-
+    // Move all parts of snake backwards 1 and insert a new head
     for(int i = sizeList; i > 0; i--){
         aList[i].setObjPos(aList[i-1]);
         if(sizeList == sizeArray){
@@ -37,6 +33,7 @@ void objPosArrayList::insertHead(objPos thisPos)
 
 void objPosArrayList::insertTail(objPos thisPos)
 {
+    // move all parts of the snake forward 1
     for(int i = 0; i < sizeList; i++){
         aList[i+1].setObjPos(aList[i]);
         if(sizeList == sizeArray){

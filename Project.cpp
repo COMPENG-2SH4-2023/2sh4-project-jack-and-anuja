@@ -50,10 +50,12 @@ void Initialize(void)
     MacUILib_clearScreen();
     srand(time(NULL));
 
+    // Inatializes instances of the objects
     myGM = new GameMechs(30, 15);
     myFood = new Food(myGM);
     myPlayer = new Player(myGM, myFood);
-    
+
+    // create a temp holding the player body to be used in generate food
     objPosArrayList* playerBody2 = myPlayer->getPlayerPos();
     myFood->generateFood(playerBody2);
 
@@ -86,17 +88,21 @@ void DrawScreen(void)
 
     bool drawn;
 
+    // temperarerly store the food location and player body
     objPosArrayList* playerBody = myPlayer->getPlayerPos();
     objPos tempBody;
 
     objPos tempFood;
     myFood->getFoodPos(tempFood);
 
+
+
     for (int row = 0; row < myGM->getBoardSizeY(); row++){
+
         for (int col = 0; col < myGM->getBoardSizeX(); col++){
 
             drawn = false;
-
+            // Draw the snake body by going through the list of snake body
             for(int i = 0; i < playerBody->getSize(); i++){
                 playerBody->getElement(tempBody, i);
                 if(tempBody.y == row && tempBody.x == col){
@@ -106,6 +112,7 @@ void DrawScreen(void)
                 }
             }
 
+            // if we draw a snake part we dont want to draw anything else
             if(drawn) continue;
 
             if (row == 0 || row == myGM->getBoardSizeY() - 1 || col == 0 || col == myGM->getBoardSizeX() - 1){
@@ -125,6 +132,7 @@ void DrawScreen(void)
 
     MacUILib_printf("Score: %d\n", myGM->getScore());
 
+    // Show a game end message before leaving
     if(myGM->getLoseFlagStatus() == true){
         MacUILib_clearScreen();
         MacUILib_printf("Game Ended. You scored: %d\n", myGM->getScore());
