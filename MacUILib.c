@@ -13,6 +13,7 @@ print_ptr MacUILib_printf;
 
 	void MacUILib_init_sync(void)
 	{
+		
 		// Nothing different.  Win allows scanf() to be used with conio.h anyways.
 		MacUILib_printf = &printf;
 	}
